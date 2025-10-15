@@ -22,17 +22,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout the repository
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+    # Step 2: (Optional) Setup Node.js if you need to build
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
       with:
-        path: ./
+        node-version: '20'
 
+    # Step 3: Install dependencies (if any)
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Build the website (if you have a build step)
+    - name: Build website
+      run: npm run build # replace with your build command
+
+    # Step 5: Upload build artifact for Pages
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: ./build # change to your build output folder, or './' if using plain HTML
+
+    # Step 6: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v1
