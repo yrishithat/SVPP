@@ -6,21 +6,18 @@ on:
       - main
 
 permissions:
-  pages: write
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout the repository
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Deploy directly to GitHub Pages
+      # 2️⃣ Deploy to GitHub Pages directly
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
-        with:
-          # If your site is plain HTML/CSS/JS in the root, just leave default path
-          # Otherwise, specify a folder like './build'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
